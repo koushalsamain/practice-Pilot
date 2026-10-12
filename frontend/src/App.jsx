@@ -403,6 +403,117 @@ function App() {
           <span>EventPilot © 2026</span>
           <span>Plan smarter. Act faster. Run better events.</span>
         </footer>
+
+      {showEventForm && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(3, 7, 18, 0.78)",
+            backdropFilter: "blur(6px)",
+            display: "grid",
+            placeItems: "center",
+            zIndex: 1000,
+            padding: "20px",
+          }}
+        >
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              setEventDetails({
+                ...eventDetails,
+                name: e.currentTarget.eventName.value,
+                date: e.currentTarget.eventDate.value,
+                registrationTarget: Number(
+                  e.currentTarget.registrationTarget.value
+                ),
+                sponsorshipTarget: Number(
+                  e.currentTarget.sponsorshipTarget.value
+                ),
+              });
+              setShowEventForm(false);
+            }}
+            style={{
+              width: "100%",
+              maxWidth: "520px",
+              padding: "28px",
+              borderRadius: "18px",
+              background: "#111827",
+              border: "1px solid #334155",
+              color: "#f8fafc",
+              display: "grid",
+              gap: "16px",
+            }}
+          >
+            <div>
+              <h2 style={{ margin: "0 0 8px" }}>Create New Event</h2>
+              <p style={{ color: "#94a3b8", margin: 0 }}>
+                Set up your event operating plan.
+              </p>
+            </div>
+
+            <label>
+              Event Name
+              <input
+                name="eventName"
+                defaultValue={eventDetails.name}
+                placeholder="e.g. CodeX Campus Hackathon"
+                required
+                style={eventInputStyle}
+              />
+            </label>
+
+            <label>
+              Event Date
+              <input
+                name="eventDate"
+                type="date"
+                defaultValue={eventDetails.date}
+                required
+                style={eventInputStyle}
+              />
+            </label>
+
+            <label>
+              Registration Target
+              <input
+                name="registrationTarget"
+                type="number"
+                min="1"
+                defaultValue={eventDetails.registrationTarget}
+                required
+                style={eventInputStyle}
+              />
+            </label>
+
+            <label>
+              Sponsorship Target (₹)
+              <input
+                name="sponsorshipTarget"
+                type="number"
+                min="0"
+                defaultValue={eventDetails.sponsorshipTarget}
+                required
+                style={eventInputStyle}
+              />
+            </label>
+
+            <div style={{ display: "flex", gap: "12px" }}>
+              <button type="submit" className="primary-button">
+                Create Event
+              </button>
+              <button
+                type="button"
+                className="secondary-button"
+                onClick={() => setShowEventForm(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
       </main>
     </div>
   );
